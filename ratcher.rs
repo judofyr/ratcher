@@ -18,12 +18,7 @@ fn parse(q: &str) -> Query {
 
 impl Query {
   fn matches(&self, string: &str) -> bool {
-    for self.words.each |&word| {
-      if (!word_matches(string, word)) {
-        return false;
-      }
-    }
-    return true;
+    self.words.all(|&word| word_matches(string, word))
   }
 }
 
