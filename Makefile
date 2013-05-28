@@ -1,17 +1,19 @@
-.PHONY: clean
+.PHONY: clean all
 
-all: test ratcher
+OBJ = ratcher
 
-ratcher: ratcher.rs
-	rustc ratcher.rs
+all: test ${OBJ}
 
-test-ratcher: ratcher.rs
-	rustc --test ratcher.rs -o test-ratcher
+${OBJ}: ${OBJ}.rs
+	rustc ${OBJ}.rs
 
-test: test-ratcher
-	./test-ratcher
+test-${OBJ}: ${OBJ}.rs
+	rustc --test ${OBJ}.rs -o test-${OBJ}
+
+test: test-${OBJ}
+	./test-${OBJ}
 
 clean:
-	rm -rf ratcher{,.dSYM}
-	rm -rf test-ratcher{,.dSYM}
+	rm -rf ${OBJ}{,.dSYM}
+	rm -rf test-${OBJ}{,.dSYM}
 
